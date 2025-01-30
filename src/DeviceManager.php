@@ -5,6 +5,7 @@ namespace Ninja\DeviceTracker;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Ninja\DeviceTracker\Contracts\StorableId;
 use Ninja\DeviceTracker\DTO\Device as DeviceDTO;
 use Ninja\DeviceTracker\Enums\DeviceTransport;
@@ -142,6 +143,8 @@ final class DeviceManager
      */
     public function create(?StorableId $deviceUuid = null): ?Device
     {
+        $exception = new \Exception;
+        Log::info('DeviceManager::create() called: '.$exception->getTraceAsString());
         $payload = $this->detect();
         if (! $payload) {
             return null;
